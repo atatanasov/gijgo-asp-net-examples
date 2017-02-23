@@ -1,0 +1,11 @@
+﻿CREATE TABLE [dbo].[PlayerTeams]
+(
+	[ID] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[PlayerID] INT NOT NULL,
+	[FromYear] INT NOT NULL,
+	[ToYear] INT NOT NULL,
+	[Team] NVARCHAR(255),
+	[Apps] INT NOT NULL,
+	[Goals] INT NOT NULL,
+	CONSTRAINT FK_PlayerTeams_Player FOREIGN KEY (PlayerID) REFERENCES Players(ID) 
+)

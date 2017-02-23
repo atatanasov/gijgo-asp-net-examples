@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Ajax Sourced Data With Grid</title>
+    <meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://code.gijgo.com/1.2.0/js/gijgo.js" type="text/javascript"></script>
+    <link href="http://code.gijgo.com/1.2.0/css/gijgo.css" rel="stylesheet" type="text/css" />
+    <link href="http://code.gijgo.com/1.2.0/css/demo.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="gj-margin-top-10">
+        <div class="gj-float-left">
+            <form class="display-inline">
+                <input id="txtQuery" type="text" placeholder="Query" class="gj-frm-ctrl gj-display-inline-block" />
+                <button id="btnSearch" type="button" class="gj-button">Search</button>
+                <button id="btnClear" type="button" class="gj-button">Clear</button>
+            </form>
+        </div>
+        <div class="gj-float-right">
+            <button id="btnAdd" type="button" class="gj-button">Add New Record</button>
+        </div>
+    </div>
+    <div class="gj-clear-both"></div>
+    <div class="gj-margin-top-10">
+        <table id="grid"></table>
+    </div>
+
+    <div id="dialog" class="gj-display-none">
+        <input type="hidden" id="ID" />
+        <form>
+            <div>
+                <label for="Name" class="gj-bold">Name:</label>
+                <input type="text" class="gj-frm-ctrl gj-width-240" id="Name">
+            </div>
+            <div class="gj-margin-top-10">
+                <label for="PlaceOfBirth" class="gj-bold">Place Of Birth:</label>
+                <input type="text" class="gj-frm-ctrl gj-width-240" id="PlaceOfBirth" />
+            </div>
+            <div class="gj-margin-top-10">
+                <button type="button" id="btnSave" class="gj-button">Save</button>
+                <button type="button" id="btnCancel" class="gj-button">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid, dialog;
+            grid = $('#grid').grid({
+                dataSource: '/Players/Get',
+                columns: [
+                    { field: 'ID', width: 32 },
+                    { field: 'Name', sortable: true },
+                    { field: 'PlaceOfBirth', title: 'Place Of Birth', sortable: true },
+                    { width: 50, tmpl: '<a href="#">edit</a>', align: 'center', events: { 'click': Edit } },
+                    { width: 50, tmpl: '<a href="#">delete</a>', align: 'center', events: { 'click': Delete } }
+                ],
+                pager: { limit: 5 }
+            });
+            dialog = $('#dialog').dialog({
+                title: 'Add/Edit Record',
+                autoOpen: false,
+                resizable: false,
+                modal: true
+            });
+            function Edit(e) {
+                $('#ID').val(e.data.id);
+                $('#Name').val(e.data.record.Name);
+                $('#PlaceOfBirth').val(e.data.record.PlaceOfBirth);
+                $('#dialog').dialog('open');
+            }
+            function Delete(e) {
+                if (confirm('Are you sure?')) {
+                    alert('TODO: Write code that delete the data on the server.');
+                    grid.reload(); //load the new data from the server after the deletion
+                }
+            }
+            function Save() {
+                if ($('#ID').val()) {
+                    var id = parseInt($('#ID').val());
+                    alert('TODO: Write code that update the data on the server.');
+                    grid.updateRow(id, { 'ID': id, 'Name': $('#Name').val(), 'PlaceOfBirth': $('#PlaceOfBirth').val() });
+                } else {
+                    alert('TODO: Write code that add the new record on the server.');
+                    grid.addRow({ 'ID': grid.count(true) + 1, 'Name': $('#Name').val(), 'PlaceOfBirth': $('#PlaceOfBirth').val() });
+                }
+                dialog.close();
+            }
+            $('#btnAdd').on('click', function () {
+                $('#ID').val('');
+                $('#Name').val('');
+                $('#PlaceOfBirth').val('');
+                $('#dialog').dialog('open');
+            });
+            $('#btnSave').on('click', Save);
+            $('#btnCancel').on('click', function () {
+                dialog.close();
+            });
+            $('#btnSearch').on('click', function () {
+                grid.reload({ name: $('#txtQuery').val() });
+            });
+            $('#btnClear').on('click', function () {
+                $('#txtQuery').val('');
+                grid.reload({ name: '' });
+            });
+        });
+    </script>
+</body>
+</html>
