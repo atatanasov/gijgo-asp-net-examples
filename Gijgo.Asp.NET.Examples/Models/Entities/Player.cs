@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Gijgo.Asp.NET.Examples.Models
+namespace Gijgo.Asp.NET.Examples.Models.Entities
 {
     public class Player
     {

@@ -45,9 +45,43 @@
     </div>
 
     <script type="text/javascript">
+        var grid, dialog;
+        function Edit(e) {
+            $('#ID').val(e.data.id);
+            $('#Name').val(e.data.record.Name);
+            $('#PlaceOfBirth').val(e.data.record.PlaceOfBirth);
+            dialog.open();
+        }
+        function Save() {
+            var record = {
+                ID: $('#ID').val(),
+                Name: $('#Name').val(),
+                PlaceOfBirth: $('#PlaceOfBirth').val()
+            };
+            $.ajax({ url: '/Players/Save', data: { record: record }, method: 'POST' })
+                .done(function () {
+                    dialog.close();
+                    grid.reload();
+                })
+                .fail(function () {
+                    alert('Failed to save.');
+                    dialog.close();
+                });
+        }
+        function Delete(e) {
+            if (confirm('Are you sure?')) {
+                $.ajax({ url: '/Players/Delete', data: { id: e.data.id }, method: 'POST' })
+                    .done(function () {
+                        grid.reload();
+                    })
+                    .fail(function () {
+                        alert('Failed to delete.');
+                    });
+            }
+        }
         $(document).ready(function () {
-            var grid, dialog;
             grid = $('#grid').grid({
+                primaryKey: 'ID',
                 dataSource: '/Players/Get',
                 columns: [
                     { field: 'ID', width: 32 },
@@ -64,34 +98,11 @@
                 resizable: false,
                 modal: true
             });
-            function Edit(e) {
-                $('#ID').val(e.data.id);
-                $('#Name').val(e.data.record.Name);
-                $('#PlaceOfBirth').val(e.data.record.PlaceOfBirth);
-                $('#dialog').dialog('open');
-            }
-            function Delete(e) {
-                if (confirm('Are you sure?')) {
-                    alert('TODO: Write code that delete the data on the server.');
-                    grid.reload(); //load the new data from the server after the deletion
-                }
-            }
-            function Save() {
-                if ($('#ID').val()) {
-                    var id = parseInt($('#ID').val());
-                    alert('TODO: Write code that update the data on the server.');
-                    grid.updateRow(id, { 'ID': id, 'Name': $('#Name').val(), 'PlaceOfBirth': $('#PlaceOfBirth').val() });
-                } else {
-                    alert('TODO: Write code that add the new record on the server.');
-                    grid.addRow({ 'ID': grid.count(true) + 1, 'Name': $('#Name').val(), 'PlaceOfBirth': $('#PlaceOfBirth').val() });
-                }
-                dialog.close();
-            }
             $('#btnAdd').on('click', function () {
                 $('#ID').val('');
                 $('#Name').val('');
                 $('#PlaceOfBirth').val('');
-                $('#dialog').dialog('open');
+                dialog.open();
             });
             $('#btnSave').on('click', Save);
             $('#btnCancel').on('click', function () {

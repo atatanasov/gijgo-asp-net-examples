@@ -61,6 +61,8 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -82,6 +84,7 @@
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
       <Private>True</Private>
@@ -103,8 +106,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Examples\Grid\bootstrap-grid-inline-edit.html" />
     <Content Include="packages.config" />
-    <Content Include="Examples\Grid\AjaxSourcedData.html" />
+    <Content Include="Examples\Grid\ajax-sourced-data.html" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -144,15 +148,14 @@
       <DependentUpon>201702251114082_initialcreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\PlayerTeam.cs" />
+    <Compile Include="Models\DTO\Player.cs" />
+    <Compile Include="Models\Entities\ApplicationDbContext.cs" />
+    <Compile Include="Models\Entities\Location.cs" />
+    <Compile Include="Models\Entities\Player.cs" />
+    <Compile Include="Models\Entities\PlayerTeam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Players\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702251114082_initialcreate.resx">
       <DependentUpon>201702251114082_initialcreate.cs</DependentUpon>

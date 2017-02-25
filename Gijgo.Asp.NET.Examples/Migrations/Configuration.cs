@@ -1,16 +1,16 @@
 ﻿namespace Gijgo.Asp.NET.Examples.Migrations
 {
-    using Gijgo.Asp.NET.Examples.Models;
+    using Gijgo.Asp.NET.Examples.Models.Entities;
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Gijgo.Asp.NET.Examples.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Gijgo.Asp.NET.Examples.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             context.Players.AddOrUpdate(
               new Player { ID = 1, Name = "Hristo Stoichkov", PlaceOfBirth = "Plovdiv, Bulgaria", DateOfBirth = new System.DateTime(1966, 02, 08) },

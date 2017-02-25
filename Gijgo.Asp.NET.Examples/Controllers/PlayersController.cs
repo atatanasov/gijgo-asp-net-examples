@@ -1,8 +1,7 @@
-﻿using Gijgo.Asp.NET.Examples.Models;
+﻿using Gijgo.Asp.NET.Examples.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Gijgo.Asp.NET.Examples.Controllers
@@ -11,18 +10,25 @@ namespace Gijgo.Asp.NET.Examples.Controllers
     {        
         public JsonResult Get(int? page, int? limit, string sortBy, string direction, string name, string placeOfBirth)
         {
-            using (ApplicationDbContext context = new Models.ApplicationDbContext())
+            List<Models.DTO.Player> records;
+            int total;
+            using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                IQueryable<Player> query = context.Players;
+                IQueryable<Models.DTO.Player> query = context.Players.Select(p => new Models.DTO.Player {
+                    ID = p.ID,
+                    Name = p.Name,
+                    PlaceOfBirth = p.PlaceOfBirth,
+                    DateOfBirth = p.DateOfBirth
+                });
 
                 if (!string.IsNullOrWhiteSpace(name))
                 {
-                    query = query.Where(p => p.Name.Contains(name));
+                    query = query.Where(q => q.Name.Contains(name));
                 }
 
                 if (!string.IsNullOrWhiteSpace(placeOfBirth))
                 {
-                    query = query.Where(p => p.PlaceOfBirth.Contains(placeOfBirth));
+                    query = query.Where(q => q.PlaceOfBirth.Contains(placeOfBirth));
                 }
 
                 if (!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(direction))
@@ -32,13 +38,13 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                         switch (sortBy.Trim().ToLower())
                         {
                             case "name":
-                                query = query.OrderBy(r => r.DateOfBirth);
+                                query = query.OrderBy(q => q.DateOfBirth);
                                 break;
                             case "placeofbirth":
-                                query = query.OrderBy(r => r.DateOfBirth);
+                                query = query.OrderBy(q => q.DateOfBirth);
                                 break;
                             case "dateofbirth":
-                                query = query.OrderBy(r => r.DateOfBirth);
+                                query = query.OrderBy(q => q.DateOfBirth);
                                 break;
                         }
                     }
@@ -47,44 +53,72 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                         switch (sortBy.Trim().ToLower())
                         {
                             case "name":
-                                query = query.OrderByDescending(r => r.DateOfBirth);
+                                query = query.OrderByDescending(q => q.DateOfBirth);
                                 break;
                             case "placeofbirth":
-                                query = query.OrderByDescending(r => r.DateOfBirth);
+                                query = query.OrderByDescending(q => q.DateOfBirth);
                                 break;
                             case "dateofbirth":
-                                query = query.OrderByDescending(r => r.DateOfBirth);
+                                query = query.OrderByDescending(q => q.DateOfBirth);
                                 break;
                         }
                     }
                 }
+                else
+                {
+                    query = query.OrderBy(q => q.ID);
+                }
 
-                List<Player> result;
-                int total = query.Count();
+                total = query.Count();
                 if (page.HasValue && limit.HasValue)
                 {
                     int start = (page.Value - 1) * limit.Value;
-                    result = query.Skip(start).Take(limit.Value).ToList();
+                    records = query.Skip(start).Take(limit.Value).ToList();
                 }
                 else
                 {
-                    result = query.ToList();
+                    records = query.ToList();
                 }
-
-                return this.Json(new { result, total }, JsonRequestBehavior.AllowGet);
             }
+
+            return this.Json(new { records, total }, JsonRequestBehavior.AllowGet);
         }
         
         [HttpPost]
-        public JsonResult Save(int id)
+        public JsonResult Save(Models.DTO.Player record)
         {
-            return Json(new { });
+            Player entity;
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                if (record.ID > 0)
+                {
+                    entity = context.Players.First(p => p.ID == record.ID);
+                    entity.Name = record.Name;
+                    entity.PlaceOfBirth = record.PlaceOfBirth;
+                }
+                else
+                {
+                    context.Players.Add(new Player {
+                        Name = record.Name,
+                        PlaceOfBirth = record.PlaceOfBirth,
+                        DateOfBirth = DateTime.MinValue
+                    });
+                }
+                context.SaveChanges();
+            }
+            return Json(new { result = true });
         }
 
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            return Json(new { });
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                Player entity = context.Players.First(p => p.ID == id);
+                context.Players.Remove(entity);
+                context.SaveChanges();
+            }
+            return Json(new { result = true });
         }
     }
 }
