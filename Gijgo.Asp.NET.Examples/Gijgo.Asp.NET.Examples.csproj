@@ -138,10 +138,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SortHelper.cs" />
+    <Compile Include="Migrations\201702251114082_initialcreate.cs" />
+    <Compile Include="Migrations\201702251114082_initialcreate.Designer.cs">
+      <DependentUpon>201702251114082_initialcreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\PlayerTeam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Players\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201702251114082_initialcreate.resx">
+      <DependentUpon>201702251114082_initialcreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
