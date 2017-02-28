@@ -15,14 +15,15 @@ namespace Gijgo.Asp.NET.Examples.Controllers
             {
                 locations = context.Locations.ToList();
 
-                records = locations.Where(r => r.ParentID == null).Select(l => new Models.DTO.Location
-                {
-                    id = l.ID,
-                    text = l.Name,
-                    population = l.Population,
-                    @checked = l.Checked,
-                    children = GetChildren(locations, l.ID)
-                }).ToList();
+                records = locations.Where(l => l.ParentID == null).OrderBy(l => l.OrderNumber)
+                    .Select(l => new Models.DTO.Location
+                    {
+                        id = l.ID,
+                        text = l.Name,
+                        population = l.Population,
+                        @checked = l.Checked,
+                        children = GetChildren(locations, l.ID)
+                    }).ToList();
             }
 
             return this.Json(records, JsonRequestBehavior.AllowGet);
@@ -30,14 +31,15 @@ namespace Gijgo.Asp.NET.Examples.Controllers
 
         private List<Models.DTO.Location> GetChildren(List<Location> locations, int parentId)
         {
-            return locations.Where(r => r.ParentID == parentId).Select(l => new Models.DTO.Location
-            {
-                id = l.ID,
-                text = l.Name,
-                population = l.Population,
-                @checked = l.Checked,
-                children = GetChildren(locations, l.ID)
-            }).ToList();
+            return locations.Where(l => l.ParentID == parentId).OrderBy(l => l.OrderNumber)
+                .Select(l => new Models.DTO.Location
+                {
+                    id = l.ID,
+                    text = l.Name,
+                    population = l.Population,
+                    @checked = l.Checked,
+                    children = GetChildren(locations, l.ID)
+                }).ToList();
         }
 
         [HttpPost]
@@ -54,6 +56,35 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     }
                     context.SaveChanges();
                 }
+            }
+
+            return this.Json(true);
+        }
+
+        [HttpPost]
+        public JsonResult ChangeNodePosition(int id, int parentId, int orderNumber)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var location = context.Locations.First(l => l.ID == id);
+
+                var newSiblingsBelow = context.Locations.Where(l => l.ParentID == parentId && l.OrderNumber >= orderNumber);
+                foreach (var sibling in newSiblingsBelow)
+                {
+                    sibling.OrderNumber = sibling.OrderNumber + 1;
+                }
+
+                var oldSiblingsBelow = context.Locations.Where(l => l.ParentID == location.ParentID && l.OrderNumber > location.OrderNumber);
+                foreach (var sibling in oldSiblingsBelow)
+                {
+                    sibling.OrderNumber = sibling.OrderNumber - 1;
+                }
+
+
+                location.ParentID = parentId;
+                location.OrderNumber = orderNumber;
+
+                context.SaveChanges();
             }
 
             return this.Json(true);

@@ -13,13 +13,13 @@
         protected override void Seed(ApplicationDbContext context)
         {
             context.Players.AddOrUpdate(
-              new Player { ID = 1, Name = "Hristo Stoichkov", PlaceOfBirth = "Plovdiv, Bulgaria", DateOfBirth = new System.DateTime(1966, 02, 08) },
-              new Player { ID = 2, Name = "Ronaldo Luís Nazário de Lima", PlaceOfBirth = "Rio de Janeiro, Brazil", DateOfBirth = new System.DateTime(1976, 09, 18) },
-              new Player { ID = 3, Name = "David Platt", PlaceOfBirth = "Chadderton, Lancashire, England", DateOfBirth = new System.DateTime(1966, 06, 10) },
-              new Player { ID = 4, Name = "Manuel Neuer", PlaceOfBirth = "Gelsenkirchen, West Germany", DateOfBirth = new System.DateTime(1986, 03, 27) },
-              new Player { ID = 5, Name = "James Rodríguez", PlaceOfBirth = "Cúcuta, Colombia", DateOfBirth = new System.DateTime(1991, 07, 12) },
-              new Player { ID = 6, Name = "Dimitar Berbatov", PlaceOfBirth = "Blagoevgrad, Bulgaria", DateOfBirth = new System.DateTime(1981, 01, 30) },
-              new Player { ID = 7, Name = "Robert Lewandowski", PlaceOfBirth = "Warsaw, Poland", DateOfBirth = new System.DateTime(1988, 08, 21) }
+              new Player { ID = 1, Name = "Hristo Stoichkov", PlaceOfBirth = "Plovdiv, Bulgaria", DateOfBirth = new System.DateTime(1966, 02, 08), OrderNumber = 1 },
+              new Player { ID = 2, Name = "Ronaldo Luís Nazário de Lima", PlaceOfBirth = "Rio de Janeiro, Brazil", DateOfBirth = new System.DateTime(1976, 09, 18), OrderNumber = 2 },
+              new Player { ID = 3, Name = "David Platt", PlaceOfBirth = "Chadderton, Lancashire, England", DateOfBirth = new System.DateTime(1966, 06, 10), OrderNumber = 3 },
+              new Player { ID = 4, Name = "Manuel Neuer", PlaceOfBirth = "Gelsenkirchen, West Germany", DateOfBirth = new System.DateTime(1986, 03, 27), OrderNumber = 4 },
+              new Player { ID = 5, Name = "James Rodríguez", PlaceOfBirth = "Cúcuta, Colombia", DateOfBirth = new System.DateTime(1991, 07, 12), OrderNumber = 5 },
+              new Player { ID = 6, Name = "Dimitar Berbatov", PlaceOfBirth = "Blagoevgrad, Bulgaria", DateOfBirth = new System.DateTime(1981, 01, 30), OrderNumber = 6 },
+              new Player { ID = 7, Name = "Robert Lewandowski", PlaceOfBirth = "Warsaw, Poland", DateOfBirth = new System.DateTime(1988, 08, 21), OrderNumber = 7 }
             );
 
             context.PlayerTeams.AddOrUpdate(
@@ -54,24 +54,24 @@
             );
 
             context.Locations.AddOrUpdate(
-                new Location { ID = 1, ParentID = null, Name = "Asia", Population = null },
-                new Location { ID = 2, ParentID = 1, Name = "China", Population = null },
-                new Location { ID = 3, ParentID = 1, Name = "Japan", Population = null },
-                new Location { ID = 4, ParentID = 1, Name = "Mongolia", Population = null },
-                new Location { ID = 5, ParentID = null, Name = "North America", Population = null },
-                new Location { ID = 6, ParentID = 5, Name = "USA", Population = null },
-                new Location { ID = 7, ParentID = 6, Name = "California", Population = 39144818 },
-                new Location { ID = 8, ParentID = 6, Name = "Florida", Population = 20271272 },
-                new Location { ID = 9, ParentID = 5, Name = "Canada", Population = null },
-                new Location { ID = 10, ParentID = 5, Name = "Mexico", Population = null },
-                new Location { ID = 11, ParentID = null, Name = "South America", Population = null },
-                new Location { ID = 12, ParentID = 11, Name = "Brazil", Population = null },
-                new Location { ID = 13, ParentID = 11, Name = "Argentina", Population = null },
-                new Location { ID = 14, ParentID = 11, Name = "Columbia", Population = null },
-                new Location { ID = 15, ParentID = null, Name = "Europe", Population = null },
-                new Location { ID = 16, ParentID = 15, Name = "France", Population = null },
-                new Location { ID = 17, ParentID = 15, Name = "Spain", Population = null },
-                new Location { ID = 18, ParentID = 15, Name = "Italy", Population = null }
+                new Location { ID = 1, ParentID = null, Name = "Asia", Population = null, OrderNumber = 1 },
+                new Location { ID = 2, ParentID = 1, Name = "China", Population = null, OrderNumber = 1 },
+                new Location { ID = 3, ParentID = 1, Name = "Japan", Population = null, OrderNumber = 2 },
+                new Location { ID = 4, ParentID = 1, Name = "Mongolia", Population = null, OrderNumber = 3 },
+                new Location { ID = 5, ParentID = null, Name = "North America", Population = null, OrderNumber = 2 },
+                new Location { ID = 6, ParentID = 5, Name = "USA", Population = null, OrderNumber = 1 },
+                new Location { ID = 7, ParentID = 6, Name = "California", Population = 39144818, OrderNumber = 1 },
+                new Location { ID = 8, ParentID = 6, Name = "Florida", Population = 20271272, OrderNumber = 2 },
+                new Location { ID = 9, ParentID = 5, Name = "Canada", Population = null, OrderNumber = 2 },
+                new Location { ID = 10, ParentID = 5, Name = "Mexico", Population = null, OrderNumber = 3 },
+                new Location { ID = 11, ParentID = null, Name = "South America", Population = null, OrderNumber = 3 },
+                new Location { ID = 12, ParentID = 11, Name = "Brazil", Population = null, OrderNumber = 1 },
+                new Location { ID = 13, ParentID = 11, Name = "Argentina", Population = null, OrderNumber = 2 },
+                new Location { ID = 14, ParentID = 11, Name = "Columbia", Population = null, OrderNumber = 3 },
+                new Location { ID = 15, ParentID = null, Name = "Europe", Population = null, OrderNumber = 4 },
+                new Location { ID = 16, ParentID = 15, Name = "France", Population = null, OrderNumber = 1 },
+                new Location { ID = 17, ParentID = 15, Name = "Spain", Population = null, OrderNumber = 2 },
+                new Location { ID = 18, ParentID = 15, Name = "Italy", Population = null, OrderNumber = 3 }
             );
         }
     }

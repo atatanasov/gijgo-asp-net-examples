@@ -108,6 +108,7 @@
   <ItemGroup>
     <Content Include="Examples\Grid\bootstrap-grid-inline-edit.html" />
     <Content Include="Examples\Tree\bootstrap-treeview-checkboxes.html" />
+    <Content Include="Examples\Tree\treeview-drag-and-drop.html" />
     <Content Include="packages.config" />
     <Content Include="Examples\Grid\ajax-sourced-data.html" />
     <Content Include="Views\_ViewStart.cshtml" />

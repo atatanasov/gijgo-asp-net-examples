@@ -14,11 +14,15 @@ namespace Gijgo.Asp.NET.Examples.Models.Entities
         }
 
         public int ID { get; set; }
+
         public string Name { get; set; }
+
         public string PlaceOfBirth { get; set; }
 
         [Column(TypeName = "Date")]
         public DateTime DateOfBirth { get; set; }
+
+        public int OrderNumber { get; set; }
 
         public virtual ICollection<PlayerTeam> Teams { get; set; }
     }

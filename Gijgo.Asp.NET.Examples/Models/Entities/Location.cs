@@ -17,6 +17,8 @@ namespace Gijgo.Asp.NET.Examples.Models.Entities
 
         public bool Checked { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public virtual Location Parent { get; set; }
 
         public virtual List<Location> Children { get; set; }
