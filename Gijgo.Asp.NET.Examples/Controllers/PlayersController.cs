@@ -14,7 +14,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
             int total;
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                IQueryable<Models.DTO.Player> query = context.Players.Select(p => new Models.DTO.Player {
+                var query = context.Players.Select(p => new Models.DTO.Player {
                     ID = p.ID,
                     Name = p.Name,
                     PlaceOfBirth = p.PlaceOfBirth,
