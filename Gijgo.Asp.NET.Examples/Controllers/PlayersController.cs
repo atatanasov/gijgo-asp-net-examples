@@ -7,18 +7,20 @@ using System.Web.Mvc;
 namespace Gijgo.Asp.NET.Examples.Controllers
 {
     public class PlayersController : Controller
-    {        
+    {
         public JsonResult Get(int? page, int? limit, string sortBy, string direction, string name, string placeOfBirth)
         {
             List<Models.DTO.Player> records;
             int total;
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                var query = context.Players.Select(p => new Models.DTO.Player {
+                var query = context.Players.Select(p => new Models.DTO.Player
+                {
                     ID = p.ID,
                     Name = p.Name,
                     PlaceOfBirth = p.PlaceOfBirth,
-                    DateOfBirth = p.DateOfBirth
+                    DateOfBirth = p.DateOfBirth,
+                    OrderNumber = p.OrderNumber
                 });
 
                 if (!string.IsNullOrWhiteSpace(name))
@@ -66,7 +68,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                 }
                 else
                 {
-                    query = query.OrderBy(q => q.ID);
+                    query = query.OrderBy(q => q.OrderNumber);
                 }
 
                 total = query.Count();
@@ -83,7 +85,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
 
             return this.Json(new { records, total }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult Save(Models.DTO.Player record)
         {
@@ -98,7 +100,8 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                 }
                 else
                 {
-                    context.Players.Add(new Player {
+                    context.Players.Add(new Player
+                    {
                         Name = record.Name,
                         PlaceOfBirth = record.PlaceOfBirth,
                         DateOfBirth = DateTime.MinValue
@@ -119,6 +122,38 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                 context.SaveChanges();
             }
             return Json(new { result = true });
+        }
+
+        public JsonResult GetTeams(int playerId, int? page, int? limit)
+        {
+            List<Models.DTO.PlayerTeam> records;
+            int total;
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var query = context.PlayerTeams.Where(pt => pt.PlayerID == playerId).Select(pt => new Models.DTO.PlayerTeam
+                {
+                    ID = pt.ID,
+                    PlayerID = pt.PlayerID,
+                    FromYear = pt.FromYear,
+                    ToYear = pt.ToYear,
+                    Team = pt.Team,
+                    Apps = pt.Apps,
+                    Goals = pt.Goals
+                });
+
+                total = query.Count();
+                if (page.HasValue && limit.HasValue)
+                {
+                    int start = (page.Value - 1) * limit.Value;
+                    records = query.OrderBy(pt => pt.FromYear).Skip(start).Take(limit.Value).ToList();
+                }
+                else
+                {
+                    records = query.ToList();
+                }
+            }
+
+            return this.Json(new { records, total }, JsonRequestBehavior.AllowGet);
         }
     }
 }

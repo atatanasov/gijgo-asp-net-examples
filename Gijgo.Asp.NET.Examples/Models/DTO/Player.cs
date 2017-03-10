@@ -8,5 +8,7 @@ namespace Gijgo.Asp.NET.Examples.Models.DTO
         public string Name { get; set; }
         public string PlaceOfBirth { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string Nationality { get; set; }
+        public int OrderNumber { get; set; }
     }
 }

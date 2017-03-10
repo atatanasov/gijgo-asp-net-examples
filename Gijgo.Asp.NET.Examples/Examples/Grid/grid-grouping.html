@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Connected jQuery Grids</title>
+    <meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://code.gijgo.com/1.3.0/js/gijgo.js" type="text/javascript"></script>
+    <link href="http://code.gijgo.com/1.3.0/css/gijgo.css" rel="stylesheet" type="text/css" />
+    <link href="http://code.gijgo.com/1.3.0/css/demo.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="">
+        <table id="grid"></table>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var grid = $('#grid').grid({
+                primaryKey: 'ID',
+                dataSource: '/PlayersGrouping/Get',
+                grouping: { groupBy: 'Nationality' },
+                columns: [{ field: 'ID' }, { field: 'Name' }, { field: 'PlaceOfBirth' }]
+            });
+        });
+    </script>
+</body>
+</html>
