@@ -12,7 +12,8 @@
     <div class="gj-margin-top-10">
         <div class="gj-float-left">
             <form class="display-inline">
-                <input id="txtQuery" type="text" placeholder="Query" class="gj-frm-ctrl gj-display-inline-block" />
+                <input id="txtName" type="text" placeholder="Name" class="gj-frm-ctrl gj-display-inline-block" />
+                <input id="txtPlaceOfBirth" type="text" placeholder="Place Of Birth" class="gj-frm-ctrl gj-display-inline-block" />
                 <button id="btnSearch" type="button" class="gj-button">Search</button>
                 <button id="btnClear" type="button" class="gj-button">Clear</button>
             </form>
@@ -109,11 +110,12 @@
                 dialog.close();
             });
             $('#btnSearch').on('click', function () {
-                grid.reload({ name: $('#txtQuery').val() });
+                grid.reload({ name: $('#txtName').val(), placeOfBirth: $('#txtPlaceOfBirth').val() });
             });
             $('#btnClear').on('click', function () {
-                $('#txtQuery').val('');
-                grid.reload({ name: '' });
+                $('#txtName').val('');
+                $('#txtPlaceOfBirth').val('');
+                grid.reload({ name: '', placeOfBirth: '' });
             });
         });
     </script>
