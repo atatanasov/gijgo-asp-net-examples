@@ -40,10 +40,10 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                         switch (sortBy.Trim().ToLower())
                         {
                             case "name":
-                                query = query.OrderBy(q => q.DateOfBirth);
+                                query = query.OrderBy(q => q.Name);
                                 break;
                             case "placeofbirth":
-                                query = query.OrderBy(q => q.DateOfBirth);
+                                query = query.OrderBy(q => q.PlaceOfBirth);
                                 break;
                             case "dateofbirth":
                                 query = query.OrderBy(q => q.DateOfBirth);
@@ -55,10 +55,10 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                         switch (sortBy.Trim().ToLower())
                         {
                             case "name":
-                                query = query.OrderByDescending(q => q.DateOfBirth);
+                                query = query.OrderByDescending(q => q.Name);
                                 break;
                             case "placeofbirth":
-                                query = query.OrderByDescending(q => q.DateOfBirth);
+                                query = query.OrderByDescending(q => q.PlaceOfBirth);
                                 break;
                             case "dateofbirth":
                                 query = query.OrderByDescending(q => q.DateOfBirth);

@@ -3,10 +3,11 @@
 <head>
     <title>Connected jQuery Grids</title>
     <meta charset="utf-8" />
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="http://code.gijgo.com/1.4.0/js/gijgo.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
     <link href="http://code.gijgo.com/1.4.0/css/gijgo.css" rel="stylesheet" type="text/css" />
     <link href="http://code.gijgo.com/1.4.0/css/demo.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://code.gijgo.com/1.4.0/js/gijgo.js" type="text/javascript"></script>
 </head>
 <body>
     <table id="grid"></table>
@@ -16,7 +17,7 @@
                 primaryKey: 'ID',
                 dataSource: '/PlayersGrouping/Get',
                 grouping: { groupBy: 'Nationality' },
-                columns: [{ field: 'ID' }, { field: 'Name' }, { field: 'PlaceOfBirth' }]
+                columns: [{ field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' }]
             });
         });
     </script>

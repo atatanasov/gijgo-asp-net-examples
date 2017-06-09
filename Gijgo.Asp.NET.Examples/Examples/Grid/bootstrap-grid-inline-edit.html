@@ -3,9 +3,8 @@
 <head>
     <title>jQuery Grid Inline Editing</title>
     <meta charset="utf-8" />
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="http://code.gijgo.com/1.4.0/js/gijgo.js" type="text/javascript"></script>
     <link href="http://code.gijgo.com/1.4.0/css/gijgo.css" rel="stylesheet" type="text/css" />
 </head>
@@ -37,14 +36,16 @@
                         alert('Failed to save.');
                     });
             });
-            grid.on('rowRemoving', function (e, $row, id, record) {
-                $.ajax({ url: '/Players/Delete', data: { id: id }, method: 'POST' })
-                    .done(function () {
-                        grid.reload();
-                    })
-                    .fail(function () {
-                        alert('Failed to delete.');
-                    });
+            grid.on('rowRemoving', function (e, $row, id, record) {            
+                if (confirm('Are you sure?')) {
+                    $.ajax({ url: '/Players/Delete', data: { id: id }, method: 'POST' })
+                        .done(function () {
+                            grid.reload();
+                        })
+                        .fail(function () {
+                            alert('Failed to delete.');
+                        });
+                }
             });
         });
     </script>
