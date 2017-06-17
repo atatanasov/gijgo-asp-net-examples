@@ -10,6 +10,8 @@ namespace Gijgo.Asp.NET.Examples.Models.DTO
 
         public long? population { get; set; }
 
+        public string flagUrl { get; set; }
+
         public bool @checked { get; set; }
 
         public virtual List<Location> children { get; set; }

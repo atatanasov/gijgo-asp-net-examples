@@ -10,11 +10,13 @@ namespace Gijgo.Asp.NET.Examples.Models.Entities
 
         public string Name { get; set; }
 
-        public long? Population { get; set; }
-
         public bool Checked { get; set; }
 
         public int OrderNumber { get; set; }
+
+        public long? Population { get; set; }
+
+        public string FlagUrl { get; set; }
 
         public virtual Location Parent { get; set; }
 

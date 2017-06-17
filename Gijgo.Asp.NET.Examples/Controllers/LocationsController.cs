@@ -20,8 +20,9 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     {
                         id = l.ID,
                         text = l.Name,
-                        population = l.Population,
                         @checked = l.Checked,
+                        population = l.Population,
+                        flagUrl = l.FlagUrl,
                         children = GetChildren(locations, l.ID)
                     }).ToList();
             }
@@ -37,6 +38,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     id = l.ID,
                     text = l.Name,
                     population = l.Population,
+                    flagUrl = l.FlagUrl,
                     @checked = l.Checked,
                     children = GetChildren(locations, l.ID)
                 }).ToList();
