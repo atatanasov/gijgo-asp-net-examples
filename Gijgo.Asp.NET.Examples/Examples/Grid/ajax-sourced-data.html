@@ -109,7 +109,7 @@
                 dialog.close();
             });
             $('#btnSearch').on('click', function () {
-                grid.reload({ name: $('#txtName').val(), placeOfBirth: $('#txtPlaceOfBirth').val() });
+                grid.reload({ page: 1, name: $('#txtName').val(), placeOfBirth: $('#txtPlaceOfBirth').val() });
             });
             $('#btnClear').on('click', function () {
                 $('#txtName').val('');
