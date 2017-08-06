@@ -35,13 +35,13 @@
             );
 
             context.Players.AddOrUpdate(
-              new Player { ID = 1, Name = "Hristo Stoichkov", PlaceOfBirth = "Plovdiv, Bulgaria", DateOfBirth = new System.DateTime(1966, 02, 08), OrderNumber = 1, CountryID = 18 },
-              new Player { ID = 2, Name = "Ronaldo Luís Nazário de Lima", PlaceOfBirth = "Rio de Janeiro, Brazil", DateOfBirth = new System.DateTime(1976, 09, 18), OrderNumber = 2, CountryID = 12 },
-              new Player { ID = 3, Name = "David Platt", PlaceOfBirth = "Chadderton, Lancashire, England", DateOfBirth = new System.DateTime(1966, 06, 10), OrderNumber = 3, CountryID = 16 },
-              new Player { ID = 4, Name = "Manuel Neuer", PlaceOfBirth = "Gelsenkirchen, West Germany", DateOfBirth = new System.DateTime(1986, 03, 27), OrderNumber = 4, CountryID = 17 },
-              new Player { ID = 5, Name = "James Rodríguez", PlaceOfBirth = "Cúcuta, Colombia", DateOfBirth = new System.DateTime(1991, 07, 12), OrderNumber = 5, CountryID = 14 },
-              new Player { ID = 6, Name = "Dimitar Berbatov", PlaceOfBirth = "Blagoevgrad, Bulgaria", DateOfBirth = new System.DateTime(1981, 01, 30), OrderNumber = 6, CountryID = 18 },
-              new Player { ID = 7, Name = "Robert Lewandowski", PlaceOfBirth = "Warsaw, Poland", DateOfBirth = new System.DateTime(1988, 08, 21), OrderNumber = 7, CountryID = 19 }
+              new Player { ID = 1, Name = "Hristo Stoichkov", PlaceOfBirth = "Plovdiv, Bulgaria", DateOfBirth = new System.DateTime(1966, 02, 08), OrderNumber = 1, CountryID = 18, IsActive = false },
+              new Player { ID = 2, Name = "Ronaldo Luís Nazário de Lima", PlaceOfBirth = "Rio de Janeiro, Brazil", DateOfBirth = new System.DateTime(1976, 09, 18), OrderNumber = 2, CountryID = 12, IsActive = false },
+              new Player { ID = 3, Name = "David Platt", PlaceOfBirth = "Chadderton, Lancashire, England", DateOfBirth = new System.DateTime(1966, 06, 10), OrderNumber = 3, CountryID = 16, IsActive = false },
+              new Player { ID = 4, Name = "Manuel Neuer", PlaceOfBirth = "Gelsenkirchen, West Germany", DateOfBirth = new System.DateTime(1986, 03, 27), OrderNumber = 4, CountryID = 17, IsActive = true },
+              new Player { ID = 5, Name = "James Rodríguez", PlaceOfBirth = "Cúcuta, Colombia", DateOfBirth = new System.DateTime(1991, 07, 12), OrderNumber = 5, CountryID = 14, IsActive = true },
+              new Player { ID = 6, Name = "Dimitar Berbatov", PlaceOfBirth = "Blagoevgrad, Bulgaria", DateOfBirth = new System.DateTime(1981, 01, 30), OrderNumber = 6, CountryID = 18, IsActive = false },
+              new Player { ID = 7, Name = "Robert Lewandowski", PlaceOfBirth = "Warsaw, Poland", DateOfBirth = new System.DateTime(1988, 08, 21), OrderNumber = 7, CountryID = 19, IsActive = true }
             );
 
             context.PlayerTeams.AddOrUpdate(

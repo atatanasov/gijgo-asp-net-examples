@@ -19,10 +19,12 @@ namespace Gijgo.Asp.NET.Examples.Models.Entities
 
         public string PlaceOfBirth { get; set; }
 
-        public int? CountryID { get; set; }
+        public int CountryID { get; set; }
 
         [Column(TypeName = "Date")]
         public DateTime DateOfBirth { get; set; }
+
+        public bool IsActive { get; set; }
 
         public int OrderNumber { get; set; }
 

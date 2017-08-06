@@ -20,6 +20,8 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     Name = p.Name,
                     PlaceOfBirth = p.PlaceOfBirth,
                     DateOfBirth = p.DateOfBirth,
+                    Nationality = p.Country.Name,
+                    IsActive = p.IsActive,
                     OrderNumber = p.OrderNumber
                 });
 
@@ -97,6 +99,9 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     entity = context.Players.First(p => p.ID == record.ID);
                     entity.Name = record.Name;
                     entity.PlaceOfBirth = record.PlaceOfBirth;
+                    entity.DateOfBirth = record.DateOfBirth;
+                    entity.CountryID = context.Locations.First(l => l.Name == record.Nationality).ID;
+                    entity.IsActive = record.IsActive;
                 }
                 else
                 {
@@ -104,7 +109,9 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     {
                         Name = record.Name,
                         PlaceOfBirth = record.PlaceOfBirth,
-                        DateOfBirth = DateTime.MinValue
+                        DateOfBirth = record.DateOfBirth,
+                        CountryID = context.Locations.First(l => l.Name == record.Nationality).ID,
+                        IsActive = record.IsActive
                     });
                 }
                 context.SaveChanges();

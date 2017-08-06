@@ -35,7 +35,22 @@
                 <input type="text" class="gj-textbox-md" id="Name" placeholder="Name...">
             </div>
             <div class="gj-margin-top-20">
-                <input type="text" class="gj-textbox-md" id="PlaceOfBirth" placeholder="Place Of Birth..." />
+                <select id="Nationality" width="100%">
+                    <option></option>
+                    <option>Bulgaria</option>
+                    <option>Brazil</option>
+                    <option>England</option>
+                    <option>Germany</option>
+                    <option>Colombia</option>
+                    <option>Poland</option>
+                </select>
+            </div>
+            <div class="gj-margin-top-20">
+                <input type="text" id="DateOfBirth" placeholder="Date Of Birth..." width="100%" />
+            </div>
+            <div class="gj-margin-top-20">
+                <input type="checkbox" id="IsActive" />
+                <label for="IsActive">Is Active?</label>
             </div>
         </div>
         <div data-role="footer">
@@ -45,18 +60,22 @@
     </div>
 
     <script type="text/javascript">
-        var grid, dialog;
+        var grid, dialog, nationalityDropdown, dateOfBirth, isActiveCheckbox;
         function Edit(e) {
             $('#ID').val(e.data.id);
             $('#Name').val(e.data.record.Name);
-            $('#PlaceOfBirth').val(e.data.record.PlaceOfBirth);
+            nationalityDropdown.value(e.data.record.Nationality);
+            dateOfBirth.value(e.data.record.DateOfBirth);
+            isActiveCheckbox.state(e.data.record.IsActive ? 'checked' : 'unchecked');
             dialog.open('Edit Player');
         }
         function Save() {
             var record = {
                 ID: $('#ID').val(),
                 Name: $('#Name').val(),
-                PlaceOfBirth: $('#PlaceOfBirth').val()
+                Nationality: nationalityDropdown.value(),
+                DateOfBirth: gj.core.parseDate(dateOfBirth.value(), 'mm/dd/yyyy').toISOString(),
+                IsActive: $('IsActive').prop('checked')
             };
             $.ajax({ url: '/Players/Save', data: { record: record }, method: 'POST' })
                 .done(function () {
@@ -87,7 +106,9 @@
                 columns: [
                     { field: 'ID', width: 56 },
                     { field: 'Name', sortable: true },
-                    { field: 'PlaceOfBirth', title: 'Place Of Birth', sortable: true },
+                    { field: 'Nationality', sortable: true },
+                    { field: 'DateOfBirth', sortable: true, type: 'date' },
+                    { field: 'IsActive', title: 'Active?', type: 'checkbox', width: 90, align: 'center' },
                     { width: 64, tmpl: '<span class="material-icons gj-cursor-pointer">edit</span>', align: 'center', events: { 'click': Edit } },
                     { width: 64, tmpl: '<span class="material-icons gj-cursor-pointer">delete</span>', align: 'center', events: { 'click': Delete } }
                 ],
@@ -99,10 +120,15 @@
                 modal: true,
                 width: 360
             });
+            nationalityDropdown = $('#Nationality').dropdown();
+            dateOfBirth = $('#DateOfBirth').datepicker();
+            isActiveCheckbox = $('#IsActive').checkbox();
             $('#btnAdd').on('click', function () {
                 $('#ID').val('');
                 $('#Name').val('');
-                $('#PlaceOfBirth').val('');
+                nationalityDropdown.value('');
+                dateOfBirth.value('');
+                isActiveCheckbox.state('unchecked');
                 dialog.open('Add Player');
             });
             $('#btnSave').on('click', Save);

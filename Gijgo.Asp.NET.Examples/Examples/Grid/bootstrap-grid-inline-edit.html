@@ -18,7 +18,9 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            var grid = $('#grid').grid({
+            var grid, countries;
+            countries = ["Bulgaria", "Brazil", "England", "Germany", "Colombia", "Poland"],
+            grid = $('#grid').grid({
                 dataSource: '/Players/Get',
                 uiLibrary: 'bootstrap',
                 primaryKey: 'ID',
@@ -26,11 +28,16 @@
                 columns: [
                     { field: 'ID', width: 34 },
                     { field: 'Name', editor: true },
-                    { field: 'PlaceOfBirth', editor: true }
+                    { field: 'Nationality', type: 'dropdown', editor: { dataSource: countries } },
+                    { field: 'DateOfBirth', type: 'date', editor: true },
+                    { field: 'IsActive', title: 'Active?', type: 'checkbox', editor: true, width: 65, align: 'center' }
                 ],
                 pager: { limit: 5 }
             });
             grid.on('rowDataChanged', function (e, id, record) {
+                // Format the date to format that is supported by the backend.
+                record.DateOfBirth = gj.core.parseDate(record.DateOfBirth).toISOString();
+                // Post the data to the server
                 $.ajax({ url: '/Players/Save', data: { record: record }, method: 'POST' })
                     .fail(function () {
                         alert('Failed to save.');
