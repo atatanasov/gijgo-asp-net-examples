@@ -36,7 +36,7 @@
             });
             grid.on('rowDataChanged', function (e, id, record) {
                 // Format the date to format that is supported by the backend.
-                record.DateOfBirth = gj.core.parseDate(record.DateOfBirth).toISOString();
+                record.DateOfBirth = gj.core.parseDate(record.DateOfBirth, 'mm/dd/yyyy').toISOString();
                 // Post the data to the server
                 $.ajax({ url: '/Players/Save', data: { record: record }, method: 'POST' })
                     .fail(function () {

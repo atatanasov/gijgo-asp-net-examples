@@ -14,7 +14,7 @@
         <div class="gj-float-left">
             <form class="display-inline">
                 <input id="txtName" type="text" placeholder="Name..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
-                <input id="txtPlaceOfBirth" type="text" placeholder="Place Of Birth..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
+                <input id="txtNationality" type="text" placeholder="Nationality..." class="gj-textbox-md gj-display-inline-block gj-width-200" />
                 <button id="btnSearch" type="button" class="gj-button-md">Search</button>
                 <button id="btnClear" type="button" class="gj-button-md">Clear</button>
             </form>
@@ -75,7 +75,7 @@
                 Name: $('#Name').val(),
                 Nationality: nationalityDropdown.value(),
                 DateOfBirth: gj.core.parseDate(dateOfBirth.value(), 'mm/dd/yyyy').toISOString(),
-                IsActive: $('IsActive').prop('checked')
+                IsActive: $('#IsActive').prop('checked')
             };
             $.ajax({ url: '/Players/Save', data: { record: record }, method: 'POST' })
                 .done(function () {
@@ -136,12 +136,12 @@
                 dialog.close();
             });
             $('#btnSearch').on('click', function () {
-                grid.reload({ page: 1, name: $('#txtName').val(), placeOfBirth: $('#txtPlaceOfBirth').val() });
+                grid.reload({ page: 1, name: $('#txtName').val(), nationality: $('#txtNationality').val() });
             });
             $('#btnClear').on('click', function () {
                 $('#txtName').val('');
-                $('#txtPlaceOfBirth').val('');
-                grid.reload({ name: '', placeOfBirth: '' });
+                $('#txtNationality').val('');
+                grid.reload({ name: '', nationality: '' });
             });
         });
     </script>

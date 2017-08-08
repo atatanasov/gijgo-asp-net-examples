@@ -8,7 +8,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
 {
     public class PlayersController : Controller
     {
-        public JsonResult Get(int? page, int? limit, string sortBy, string direction, string name, string placeOfBirth)
+        public JsonResult Get(int? page, int? limit, string sortBy, string direction, string name, string nationality, string placeOfBirth)
         {
             List<Models.DTO.Player> records;
             int total;
@@ -20,7 +20,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     Name = p.Name,
                     PlaceOfBirth = p.PlaceOfBirth,
                     DateOfBirth = p.DateOfBirth,
-                    Nationality = p.Country.Name,
+                    Nationality = p.Country != null ? p.Country.Name : "",
                     IsActive = p.IsActive,
                     OrderNumber = p.OrderNumber
                 });
@@ -30,9 +30,14 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     query = query.Where(q => q.Name.Contains(name));
                 }
 
+                if (!string.IsNullOrWhiteSpace(nationality))
+                {
+                    query = query.Where(q => q.Nationality != null && q.Nationality.Contains(nationality));
+                }
+
                 if (!string.IsNullOrWhiteSpace(placeOfBirth))
                 {
-                    query = query.Where(q => q.PlaceOfBirth.Contains(placeOfBirth));
+                    query = query.Where(q => q.PlaceOfBirth != null && q.PlaceOfBirth.Contains(placeOfBirth));
                 }
 
                 if (!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(direction))
@@ -44,7 +49,10 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                             case "name":
                                 query = query.OrderBy(q => q.Name);
                                 break;
-                            case "placeofbirth":
+                            case "nationality":
+                                query = query.OrderBy(q => q.Nationality);
+                                break;
+                            case "placeOfBirth":
                                 query = query.OrderBy(q => q.PlaceOfBirth);
                                 break;
                             case "dateofbirth":
@@ -59,7 +67,10 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                             case "name":
                                 query = query.OrderByDescending(q => q.Name);
                                 break;
-                            case "placeofbirth":
+                            case "nationality":
+                                query = query.OrderByDescending(q => q.Nationality);
+                                break;
+                            case "placeOfBirth":
                                 query = query.OrderByDescending(q => q.PlaceOfBirth);
                                 break;
                             case "dateofbirth":
@@ -100,7 +111,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     entity.Name = record.Name;
                     entity.PlaceOfBirth = record.PlaceOfBirth;
                     entity.DateOfBirth = record.DateOfBirth;
-                    entity.CountryID = context.Locations.First(l => l.Name == record.Nationality).ID;
+                    entity.Country = context.Locations.FirstOrDefault(l => l.Name == record.Nationality);
                     entity.IsActive = record.IsActive;
                 }
                 else
@@ -110,7 +121,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                         Name = record.Name,
                         PlaceOfBirth = record.PlaceOfBirth,
                         DateOfBirth = record.DateOfBirth,
-                        CountryID = context.Locations.First(l => l.Name == record.Nationality).ID,
+                        Country = context.Locations.FirstOrDefault(l => l.Name == record.Nationality),
                         IsActive = record.IsActive
                     });
                 }
