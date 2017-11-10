@@ -8,22 +8,13 @@
     <script src="http://code.gijgo.com/1.7.0/js/gijgo.js" type="text/javascript"></script>
 </head>
 <body>
-    <div class="container-fluid">
-        <div id="tree"></div>
-    </div>
+    <div id="tree"></div>
     <script type="text/javascript">
             $(document).ready(function () {
-                var tree = $('#tree').tree({
+                $('#tree').tree({
                     primaryKey: 'id',
-                    dataSource: '/Locations/Get',
-                    dragAndDrop: true
-                });
-                tree.on('nodeDrop', function (e, id, parentId, orderNumber) {
-                    var params = { id: id, parentId: parentId, orderNumber: orderNumber };
-                    $.ajax({ url: '/Locations/ChangeNodePosition', data: params, method: 'POST' })
-                        .fail(function () {
-                            alert('Failed to save.');
-                        });
+                    dataSource: '/Locations/LazyGet',
+                    lazyLoading: true
                 });
             });
     </script>

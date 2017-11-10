@@ -30,6 +30,29 @@ namespace Gijgo.Asp.NET.Examples.Controllers
             return this.Json(records, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult LazyGet(int? parentId)
+        {
+            List<Location> locations;
+            List<Models.DTO.Location> records;
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                locations = context.Locations.ToList();
+
+                records = locations.Where(l => l.ParentID == parentId).OrderBy(l => l.OrderNumber)
+                    .Select(l => new Models.DTO.Location
+                    {
+                        id = l.ID,
+                        text = l.Name,
+                        @checked = l.Checked,
+                        population = l.Population,
+                        flagUrl = l.FlagUrl,
+                        hasChildren = locations.Any(l2 => l2.ParentID == l.ID)
+                    }).ToList();
+            }
+
+            return this.Json(records, JsonRequestBehavior.AllowGet);
+        }
+
         private List<Models.DTO.Location> GetChildren(List<Location> locations, int parentId)
         {
             return locations.Where(l => l.ParentID == parentId).OrderBy(l => l.OrderNumber)

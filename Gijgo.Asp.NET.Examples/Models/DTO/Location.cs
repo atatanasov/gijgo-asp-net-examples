@@ -14,6 +14,8 @@ namespace Gijgo.Asp.NET.Examples.Models.DTO
 
         public bool @checked { get; set; }
 
+        public bool hasChildren { get; set; }
+
         public virtual List<Location> children { get; set; }
     }
 }
