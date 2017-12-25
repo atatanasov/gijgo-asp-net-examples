@@ -7,13 +7,18 @@ namespace Gijgo.Asp.NET.Examples.Controllers
 {
     public class LocationsController : Controller
     {
-        public JsonResult Get()
+        public JsonResult Get(string query)
         {
             List<Location> locations;
             List<Models.DTO.Location> records;
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 locations = context.Locations.ToList();
+
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    locations = locations.Where(q => q.Name.Contains(query)).ToList();
+                }
 
                 records = locations.Where(l => l.ParentID == null).OrderBy(l => l.OrderNumber)
                     .Select(l => new Models.DTO.Location
@@ -70,17 +75,18 @@ namespace Gijgo.Asp.NET.Examples.Controllers
         [HttpPost]
         public JsonResult SaveCheckedNodes(List<int> checkedIds)
         {
-            if (checkedIds != null)
+            if (checkedIds == null)
             {
-                using (ApplicationDbContext context = new ApplicationDbContext())
+                checkedIds = new List<int>();
+            }
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                var locations = context.Locations.ToList();
+                foreach (var location in locations)
                 {
-                    var locations = context.Locations.ToList();
-                    foreach (var location in locations)
-                    {
-                        location.Checked = checkedIds.Contains(location.ID);
-                    }
-                    context.SaveChanges();
+                    location.Checked = checkedIds.Contains(location.ID);
                 }
+                context.SaveChanges();
             }
 
             return this.Json(true);
