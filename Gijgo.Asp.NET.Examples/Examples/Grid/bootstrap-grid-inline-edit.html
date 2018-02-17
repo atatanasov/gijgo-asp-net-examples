@@ -35,10 +35,12 @@
                 pager: { limit: 5 }
             });
             grid.on('rowDataChanged', function (e, id, record) {
+                // Clone the record in new object where you can format the data to format that is supported by the backend.
+                var data = $.extend(true, {}, record);
                 // Format the date to format that is supported by the backend.
-                record.DateOfBirth = gj.core.parseDate(record.DateOfBirth, 'mm/dd/yyyy').toISOString();
+                data.DateOfBirth = gj.core.parseDate(record.DateOfBirth, 'mm/dd/yyyy').toISOString();
                 // Post the data to the server
-                $.ajax({ url: '/Players/Save', data: { record: record }, method: 'POST' })
+                $.ajax({ url: '/Players/Save', data: { record: data }, method: 'POST' })
                     .fail(function () {
                         alert('Failed to save.');
                     });
