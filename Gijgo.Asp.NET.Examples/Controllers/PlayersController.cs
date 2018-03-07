@@ -20,7 +20,8 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     Name = p.Name,
                     PlaceOfBirth = p.PlaceOfBirth,
                     DateOfBirth = p.DateOfBirth,
-                    Nationality = p.Country != null ? p.Country.Name : "",
+                    CountryID = p.CountryID,
+                    CountryName = p.Country != null ? p.Country.Name : "",
                     IsActive = p.IsActive,
                     OrderNumber = p.OrderNumber
                 });
@@ -32,7 +33,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
 
                 if (!string.IsNullOrWhiteSpace(nationality))
                 {
-                    query = query.Where(q => q.Nationality != null && q.Nationality.Contains(nationality));
+                    query = query.Where(q => q.CountryName != null && q.CountryName.Contains(nationality));
                 }
 
                 if (!string.IsNullOrWhiteSpace(placeOfBirth))
@@ -49,8 +50,8 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                             case "name":
                                 query = query.OrderBy(q => q.Name);
                                 break;
-                            case "nationality":
-                                query = query.OrderBy(q => q.Nationality);
+                            case "countryname":
+                                query = query.OrderBy(q => q.CountryName);
                                 break;
                             case "placeOfBirth":
                                 query = query.OrderBy(q => q.PlaceOfBirth);
@@ -67,8 +68,8 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                             case "name":
                                 query = query.OrderByDescending(q => q.Name);
                                 break;
-                            case "nationality":
-                                query = query.OrderByDescending(q => q.Nationality);
+                            case "countryname":
+                                query = query.OrderByDescending(q => q.CountryName);
                                 break;
                             case "placeOfBirth":
                                 query = query.OrderByDescending(q => q.PlaceOfBirth);
@@ -111,7 +112,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     entity.Name = record.Name;
                     entity.PlaceOfBirth = record.PlaceOfBirth;
                     entity.DateOfBirth = record.DateOfBirth;
-                    entity.Country = context.Locations.FirstOrDefault(l => l.Name == record.Nationality);
+                    entity.CountryID = record.CountryID;
                     entity.IsActive = record.IsActive;
                 }
                 else
@@ -121,7 +122,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                         Name = record.Name,
                         PlaceOfBirth = record.PlaceOfBirth,
                         DateOfBirth = record.DateOfBirth,
-                        Country = context.Locations.FirstOrDefault(l => l.Name == record.Nationality),
+                        CountryID = record.CountryID,
                         IsActive = record.IsActive
                     });
                 }

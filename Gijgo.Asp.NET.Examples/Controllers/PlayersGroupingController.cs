@@ -21,19 +21,20 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     Name = p.Name,
                     PlaceOfBirth = p.PlaceOfBirth,
                     DateOfBirth = p.DateOfBirth,
-                    Nationality = p.Country.Name,
+                    CountryID = p.CountryID,
+                    CountryName = p.Country.Name,
                     OrderNumber = p.OrderNumber
                 });
 
-                if (groupBy == "Nationality")
+                if (groupBy == "CountryName")
                 {
                     if (groupByDirection.Trim().ToLower() == "asc")
                     {
-                        query = query.OrderBy(q => q.Nationality).ThenBy(q => q.OrderNumber);
+                        query = query.OrderBy(q => q.CountryName).ThenBy(q => q.OrderNumber);
                     }
                     else
                     {
-                        query = query.OrderByDescending(q => q.Nationality).ThenBy(q => q.OrderNumber);
+                        query = query.OrderByDescending(q => q.CountryName).ThenBy(q => q.OrderNumber);
                     }
                 }
                 else

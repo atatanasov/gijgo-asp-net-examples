@@ -28,7 +28,7 @@
                 columns: [
                     { field: 'ID', width: 34 },
                     { field: 'Name', editor: true },
-                    { field: 'Nationality', type: 'dropdown', editor: { dataSource: countries } },
+                    { field: 'CountryName', title: 'Nationality', type: 'dropdown', editField: 'CountryID', editor: { dataSource: '/Locations/GetCountries', valueField: 'id' } },
                     { field: 'DateOfBirth', type: 'date', editor: true },
                     { field: 'IsActive', title: 'Active?', type: 'checkbox', editor: true, width: 65, align: 'center' }
                 ],

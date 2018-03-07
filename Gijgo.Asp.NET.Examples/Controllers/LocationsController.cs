@@ -120,5 +120,24 @@ namespace Gijgo.Asp.NET.Examples.Controllers
 
             return this.Json(true);
         }
+
+        public JsonResult GetCountries(string query)
+        {
+            List<Models.DTO.Location> records;
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                records = context.Locations.Where(l => l.Parent != null && l.Parent.ParentID == null)
+                    .Select(l => new Models.DTO.Location
+                    {
+                        id = l.ID,
+                        text = l.Name,
+                        @checked = l.Checked,
+                        population = l.Population,
+                        flagUrl = l.FlagUrl
+                    }).ToList();
+            }
+
+            return this.Json(records, JsonRequestBehavior.AllowGet);
+        }
     }
 }

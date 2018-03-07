@@ -15,7 +15,7 @@
             var grid = $('#grid').grid({
                 primaryKey: 'ID',
                 dataSource: '/PlayersGrouping/Get',
-                grouping: { groupBy: 'Nationality' },
+                grouping: { groupBy: 'CountryName' },
                 columns: [{ field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' }]
             });
         });
