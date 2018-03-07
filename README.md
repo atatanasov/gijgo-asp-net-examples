@@ -8,21 +8,15 @@
 4. Execute "Update-Database" command in "Package Manager Console"
 5. Run the project with Visual Studio
 
-### Widgets
-
-1. [Grid](http://gijgo.com/grid)
-1. [Tree](http://gijgo.com/tree)
-1. [Dialog](http://gijgo.com/dialog)
-1. [Editor](http://gijgo.com/editor)
-1. [Checkbox](http://gijgo.com/checkbox)
-1. [Draggable](http://gijgo.com/draggable)
-1. [Droppable](http://gijgo.com/droppable)
-
 ### Top Examples
 
-1. [jQuery Grid Bootstrap](http://gijgo.com/grid/demos/jquery-grid-bootstrap)
-1. [Bootstrap Inline Edit](http://gijgo.com/grid/demos/bootstrap-grid-inline-edit)
-1. [Bootstrap Treeview](http://gijgo.com/tree/demos/bootstrap-treeview)
-1. [Bootstrap 4 Treeview](http://gijgo.com/tree/demos/bootstrap-4-treeview)
-1. [Bootstrap Modal Resizable](http://gijgo.com/dialog/demos/bootstrap-modal-resizable)
-1. [Bootstrap WYSIWYG](http://gijgo.com/editor/example/bootstrap-wysiwyg)
+1. [jQuery Grid](http://gijgo.com/grid)
+2. [Bootstrap Editable Table](http://gijgo.com/grid/demos/bootstrap-grid-inline-edit)
+3. [Bootstrap Treeview](http://gijgo.com/tree/demos/bootstrap-treeview)
+4. [Bootstrap 4 Treeview](http://gijgo.com/tree/demos/bootstrap-4-treeview)
+5. [Bootstrap Modal Resizable](http://gijgo.com/dialog/example/bootstrap-modal-resizable)
+6. [Bootstrap Datepicker](http://gijgo.com/datepicker/example/bootstrap)
+7. [Bootstrap 4 Datepicker](http://gijgo.com/datepicker/example/bootstrap-4)
+8. [Bootstrap 4 Timepicker](http://gijgo.com/timepicker/example/bootstrap-4)
+9. [Bootstrap 4 Checkbox](http://gijgo.com/checkbox/example/bootstrap-4)
+10. [Bootstrap 4 Table](http://gijgo.com/grid/demos/bootstrap-4-table)
