@@ -19,4 +19,4 @@
 7. [Bootstrap 4 Datepicker](http://gijgo.com/datepicker/example/bootstrap-4)
 8. [Bootstrap 4 Timepicker](http://gijgo.com/timepicker/example/bootstrap-4)
 9. [Bootstrap 4 Checkbox](http://gijgo.com/checkbox/example/bootstrap-4)
-10. [Bootstrap 4 Table] (http://gijgo.com/grid/demos/bootstrap-4-table)
+10. [Bootstrap 4 Table](http://gijgo.com/grid/demos/bootstrap-4-table)
