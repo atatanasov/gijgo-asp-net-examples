@@ -35,15 +35,7 @@
                 <input type="text" class="gj-textbox-md" id="Name" placeholder="Name...">
             </div>
             <div class="gj-margin-top-20">
-                <select id="Nationality" width="100%">
-                    <option></option>
-                    <option>Bulgaria</option>
-                    <option>Brazil</option>
-                    <option>England</option>
-                    <option>Germany</option>
-                    <option>Colombia</option>
-                    <option>Poland</option>
-                </select>
+                <select id="Nationality" width="100%"></select>
             </div>
             <div class="gj-margin-top-20">
                 <input type="text" id="DateOfBirth" placeholder="Date Of Birth..." width="100%" />
@@ -64,7 +56,7 @@
         function Edit(e) {
             $('#ID').val(e.data.id);
             $('#Name').val(e.data.record.Name);
-            nationalityDropdown.value(e.data.record.Nationality);
+            nationalityDropdown.value(e.data.record.CountryID);
             dateOfBirth.value(e.data.record.DateOfBirth);
             isActiveCheckbox.state(e.data.record.IsActive ? 'checked' : 'unchecked');
             dialog.open('Edit Player');
@@ -73,7 +65,7 @@
             var record = {
                 ID: $('#ID').val(),
                 Name: $('#Name').val(),
-                Nationality: nationalityDropdown.value(),
+                CountryID: nationalityDropdown.value(),
                 DateOfBirth: gj.core.parseDate(dateOfBirth.value(), 'mm/dd/yyyy').toISOString(),
                 IsActive: $('#IsActive').prop('checked')
             };
@@ -105,7 +97,7 @@
                 columns: [
                     { field: 'ID', width: 56 },
                     { field: 'Name', sortable: true },
-                    { field: 'Nationality', sortable: true },
+                    { field: 'CountryName', title: 'Nationality', sortable: true },
                     { field: 'DateOfBirth', sortable: true, type: 'date' },
                     { field: 'IsActive', title: 'Active?', type: 'checkbox', width: 90, align: 'center' },
                     { width: 64, tmpl: '<span class="material-icons gj-cursor-pointer">edit</span>', align: 'center', events: { 'click': Edit } },
@@ -119,7 +111,7 @@
                 modal: true,
                 width: 360
             });
-            nationalityDropdown = $('#Nationality').dropdown();
+            nationalityDropdown = $('#Nationality').dropdown({ dataSource: '/Locations/GetCountries', valueField: 'id' });
             dateOfBirth = $('#DateOfBirth').datepicker();
             isActiveCheckbox = $('#IsActive').checkbox();
             $('#btnAdd').on('click', function () {
