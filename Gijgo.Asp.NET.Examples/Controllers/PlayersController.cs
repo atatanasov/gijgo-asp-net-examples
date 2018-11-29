@@ -113,6 +113,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                     entity.PlaceOfBirth = record.PlaceOfBirth;
                     entity.DateOfBirth = record.DateOfBirth;
                     entity.CountryID = record.CountryID;
+                    entity.Country = context.Locations.FirstOrDefault(l => l.ID == record.CountryID);
                     entity.IsActive = record.IsActive;
                 }
                 else
@@ -123,6 +124,7 @@ namespace Gijgo.Asp.NET.Examples.Controllers
                         PlaceOfBirth = record.PlaceOfBirth,
                         DateOfBirth = record.DateOfBirth,
                         CountryID = record.CountryID,
+                        Country = context.Locations.FirstOrDefault(l => l.ID == record.CountryID),
                         IsActive = record.IsActive
                     });
                 }
